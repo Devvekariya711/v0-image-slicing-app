@@ -207,11 +207,11 @@ function OverviewSection() {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { label: "Modules", value: "6", detail: "Auth, Channels, AI, Publishing, Dashboard, Billing" },
-          { label: "Screens", value: "6+", detail: "Landing, Onboarding, Dashboard, Clips, Analytics, Settings" },
-          { label: "API Integrations", value: "8", detail: "YouTube, TikTok, Instagram, Stripe, Whop, LLM, FFmpeg, Email" },
+          { label: "Modules", value: "6", detail: "Auth, Channels, AI Pipeline, Publishing, Dashboard, Billing" },
+          { label: "Screens", value: "6+", detail: "Landing, Onboarding, Dashboard, Clips Library, Analytics, Settings" },
+          { label: "API Integrations", value: "8", detail: "YouTube, TikTok, Instagram, Stripe, Whop, OpenAI, FFmpeg, Resend" },
           { label: "DB Tables", value: "6", detail: "users, channels, videos, clips, publications, social_accounts" },
         ].map((stat) => (
           <div
@@ -227,6 +227,37 @@ function OverviewSection() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Core User Journey */}
+      <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+        <h2 className="text-lg font-semibold text-foreground mb-5">
+          Core User Journey
+        </h2>
+        <div className="flex flex-col sm:flex-row items-stretch gap-3">
+          {[
+            { step: "1", title: "Connect", detail: "Link YouTube channel via OAuth" },
+            { step: "2", title: "Detect", detail: "Webhook fires on new upload" },
+            { step: "3", title: "Analyze", detail: "AI finds viral moments" },
+            { step: "4", title: "Clip", detail: "FFmpeg renders 9:16 clips" },
+            { step: "5", title: "Publish", detail: "Auto-post to 3 platforms" },
+          ].map((item, i) => (
+            <div key={item.step} className="flex sm:flex-col items-center gap-3 flex-1">
+              <div className="flex sm:flex-col items-center gap-3 flex-1 w-full">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-primary/10 text-sm font-bold text-primary">
+                  {item.step}
+                </div>
+                <div className="sm:text-center">
+                  <div className="text-sm font-semibold text-foreground">{item.title}</div>
+                  <div className="text-xs text-muted-foreground">{item.detail}</div>
+                </div>
+              </div>
+              {i < 4 && (
+                <div className="hidden sm:block h-px w-full bg-border" />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Product Vision */}
@@ -268,15 +299,15 @@ function OverviewSection() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                AI-powered viral moment detection
+                AI-powered viral moment detection via LLM analysis
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                True multi-platform publishing (3 platforms simultaneously)
+                True multi-platform publishing (TikTok, IG Reels, Shorts)
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                Built-in monetization via Whop integration
+                Built-in monetization via Whop campaigns
               </li>
             </ul>
           </div>
@@ -295,7 +326,7 @@ function OverviewSection() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                <span><strong className="text-foreground/80">Enterprise ($99/mo):</strong> Unlimited channels, priority processing, API access</span>
+                <span><strong className="text-foreground/80">Enterprise ($99/mo):</strong> Unlimited channels, priority, API access</span>
               </li>
             </ul>
           </div>

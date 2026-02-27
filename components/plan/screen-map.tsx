@@ -3,13 +3,11 @@
 import { useState } from "react"
 import {
   Monitor,
-  Smartphone,
-  Layout,
   PanelLeft,
+  Layout,
+  Video,
   BarChart3,
   Settings,
-  Video,
-  Bell,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
@@ -21,6 +19,7 @@ interface ScreenSpec {
   description: string
   keyElements: string[]
   uxNotes: string[]
+  wireframeBlocks: { label: string; span: string }[]
 }
 
 const screens: ScreenSpec[] = [
@@ -34,7 +33,7 @@ const screens: ScreenSpec[] = [
     keyElements: [
       "Hero: Bold headline + animated clip preview",
       "How It Works: 4-step animated pipeline diagram",
-      "Comparison Table: EasySlice vs Manual (side-by-side)",
+      "Comparison Table: AI Platform vs Manual (side-by-side)",
       "Pricing Cards: Free / Pro / Enterprise tiers",
       "Social Proof: Creator testimonials + stats",
       "CTA: Persistent sticky bar on scroll",
@@ -44,6 +43,14 @@ const screens: ScreenSpec[] = [
       "Animate elements on scroll using Intersection Observer",
       "Mobile: Stack comparison into accordion format",
       "Lazy-load video previews below the fold",
+    ],
+    wireframeBlocks: [
+      { label: "Nav", span: "col-span-4" },
+      { label: "Hero + CTA", span: "col-span-4 row-span-2" },
+      { label: "How It Works", span: "col-span-4" },
+      { label: "Comparison", span: "col-span-4" },
+      { label: "Pricing", span: "col-span-4" },
+      { label: "Footer", span: "col-span-4" },
     ],
   },
   {
@@ -66,6 +73,11 @@ const screens: ScreenSpec[] = [
       "Show channel verification status in real-time",
       "Mobile-first: Full-screen steps with bottom navigation",
     ],
+    wireframeBlocks: [
+      { label: "Progress Bar", span: "col-span-4" },
+      { label: "Step Content", span: "col-span-4 row-span-3" },
+      { label: "Back / Next", span: "col-span-4" },
+    ],
   },
   {
     id: "dashboard",
@@ -86,6 +98,15 @@ const screens: ScreenSpec[] = [
       "Skeleton loading states for all data cards",
       "Responsive grid: 3-col desktop, 2-col tablet, 1-col mobile",
       "Toast notifications for background job completions",
+    ],
+    wireframeBlocks: [
+      { label: "Sidebar", span: "col-span-1 row-span-5" },
+      { label: "Header + Search", span: "col-span-3" },
+      { label: "Stat", span: "col-span-1" },
+      { label: "Stat", span: "col-span-1" },
+      { label: "Stat", span: "col-span-1" },
+      { label: "Recent Clips Grid", span: "col-span-2 row-span-2" },
+      { label: "Activity Feed", span: "col-span-1 row-span-2" },
     ],
   },
   {
@@ -108,6 +129,14 @@ const screens: ScreenSpec[] = [
       "Drag-to-reorder for scheduling queue",
       "Keyboard shortcuts for power users (j/k navigation)",
     ],
+    wireframeBlocks: [
+      { label: "Sidebar", span: "col-span-1 row-span-5" },
+      { label: "Filters + Sort", span: "col-span-3" },
+      { label: "Clip", span: "col-span-1 row-span-2" },
+      { label: "Clip", span: "col-span-1 row-span-2" },
+      { label: "Clip", span: "col-span-1 row-span-2" },
+      { label: "Load More", span: "col-span-3" },
+    ],
   },
   {
     id: "analytics",
@@ -129,6 +158,13 @@ const screens: ScreenSpec[] = [
       "Responsive charts that resize gracefully",
       "Loading states show chart skeletons, not spinners",
     ],
+    wireframeBlocks: [
+      { label: "Sidebar", span: "col-span-1 row-span-5" },
+      { label: "Date Range + Export", span: "col-span-3" },
+      { label: "Line Chart", span: "col-span-2 row-span-2" },
+      { label: "Pie Chart", span: "col-span-1 row-span-2" },
+      { label: "Top Clips Table", span: "col-span-3 row-span-2" },
+    ],
   },
   {
     id: "settings",
@@ -149,6 +185,12 @@ const screens: ScreenSpec[] = [
       "Inline editing with auto-save and toast confirmation",
       "Destructive actions require typed confirmation",
       "Mobile: Tabs become a scrollable list",
+    ],
+    wireframeBlocks: [
+      { label: "Sidebar", span: "col-span-1 row-span-5" },
+      { label: "Settings Tabs", span: "col-span-3" },
+      { label: "Form Content", span: "col-span-2 row-span-3" },
+      { label: "Preview / Status", span: "col-span-1 row-span-3" },
     ],
   },
 ]
@@ -183,7 +225,7 @@ export function ScreenMap() {
 
       {/* Screen detail */}
       <div className="rounded-xl border border-border bg-card p-6 space-y-5">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-4">
           <div>
             <h4 className="text-lg font-semibold text-foreground">
               {current.name}
@@ -197,6 +239,25 @@ export function ScreenMap() {
         <p className="text-sm leading-relaxed text-foreground/70">
           {current.description}
         </p>
+
+        {/* Wireframe Preview */}
+        <div>
+          <h5 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Layout Wireframe
+          </h5>
+          <div className="grid grid-cols-4 gap-1.5 rounded-lg border border-border/50 bg-background/50 p-3">
+            {current.wireframeBlocks.map((block, i) => (
+              <div
+                key={`${block.label}-${i}`}
+                className={`flex items-center justify-center rounded border border-dashed border-primary/20 bg-primary/5 p-2 text-center ${block.span}`}
+              >
+                <span className="text-[10px] leading-tight text-primary/60 font-medium">
+                  {block.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
