@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
+  // better-sqlite3 is a server-only native module — tell webpack not to bundle it
+  serverExternalPackages: ["better-sqlite3"],
 }
 
 export default nextConfig

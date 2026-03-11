@@ -8,3 +8,12 @@ node_modules/
 .next/
 .env*.local
 .DS_Store
+
+# SocialHub local storage
+media/
+data/
+*.db
+
+# Secrets - never commit
+config/
+*.json.bak
